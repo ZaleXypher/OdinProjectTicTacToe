@@ -86,7 +86,7 @@ function gameBoard(){
         }
     
         function tie(round){
-            if(round >= 8){
+            if(round >= 9){
                 announcer.textContent = `Players tied`;
                 setTimeout(resetBoard, 3000);
             }
