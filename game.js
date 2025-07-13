@@ -3,6 +3,7 @@ function gameBoard(){
     let box = document.querySelector("#game-board");
     let player = "X"
     let currentGame = [["", "", ""], ["", "", ""], ["", "", ""]]
+    let winStatus = 0;
 
     function winner(player){
         let playerLetter = player;
@@ -58,29 +59,56 @@ function gameBoard(){
             }
             
             if(winHor(gameBoard) || winVer(gameBoard) || winDia(gameBoard)){
-                return `${player} Win`
+                return 1
             }
         }
         return {win}
     }
 
+    function announce(){
+        let announcer = document.querySelector("#announce")
+
+        function announcePlayer(player){
+            announcer.textContent = `Player ${player}'s turn`;
+        }
+
+        function win(player, board){
+            let winChecker = winner(player);
+            if(winChecker.win(board)){
+                winStatus = 1;
+                announcer.textContent = `Player ${player}'s win`;
+                setTimeout(resetBoard, 3000)
+            }
+        }
+    
+        function tie(round){
+            if(round >= 9){
+                announcer.textContent = `Players tied`;
+                setTimeout(resetBoard, 3000)
+            }
+        }
+        return {announcePlayer, win, tie}
+    }
+
+    let announcements = announce();
+
     function play(box){
-        if(box.target.textContent == ""){
+        if(box.target.textContent == "" && winStatus == 0){
             box.target.textContent = player;
             box.target.classList.add(player);
             let row = box.target.getAttribute("data-row");
             let column = box.target.getAttribute("data-column");
             currentGame[row][column] = player;
 
-            let winX = winner('X');
-            let winY = winner('Y');
             if(round % 2 == 0){
-                player = "Y";
-                console.log(winX.win(currentGame));
+                announcements.announcePlayer("X");
+                announcements.win(player, currentGame);
+                player = "X";
             }
             else {
-                player = "X"; 
-                console.log(winY.win(currentGame));
+                announcements.announcePlayer("Y");
+                announcements.win(player, currentGame);
+                player = "Y"; 
             }
             round++;
         }
@@ -97,7 +125,8 @@ function gameBoard(){
                 box.appendChild(grid);
             }
         }
-        round = 2;
+        round = 1;
+        announcements.announcePlayer("X")
     }
 
     function resetBoard(){
@@ -105,6 +134,8 @@ function gameBoard(){
         box.innerHTML = '';
         player = "X";
         round = 0;
+        winStatus = 0;
+        createBoard();
     }
     
     return {createBoard, resetBoard}

@@ -12,10 +12,30 @@ body{
     padding: 1.2rem;
 }
 
-button{
+.title-card{
+    width: 100%;
+    height: 4rem;
+    background-color: black;
+    color: white;
+    font-size: 2rem;
+    font-weight: 650;
+
+}
+
+.title{
+    height: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+button, #announce{
     appearance: none;
     font-size: 1.1em;
+    padding: .4em;
     border: 2px black solid;
+    background-color: white;
     border-radius: .5em;
     cursor: pointer;
 }
@@ -31,18 +51,27 @@ button{
     width:  50vh;
     height: 50vh;
     border: 1px black solid;
+    border-radius: 1rem;
     background-color: white;
     display: grid;
+    gap: .5rem;
+    padding: .5rem;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
 }
 
 .play-box{
+    border-radius: .5rem;
     border: 1px black dotted;
-    font-size: 4rem;
+    font-size: 6rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.play-box:hover{
+    background-color: lightgray;
 }
 
 .X{
