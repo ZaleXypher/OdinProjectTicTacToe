@@ -1,10 +1,4 @@
 function gameBoard(){
-    let round = 1;
-    let box = document.querySelector("#game-board");
-    let player = "X"
-    let currentGame = [["", "", ""], ["", "", ""], ["", "", ""]]
-    let winStatus = 0;
-
     function winner(player){
         let playerLetter = player;
         let win = function checkWinner(gameBoard){
@@ -67,7 +61,8 @@ function gameBoard(){
 
     function announce(){
         let announcer = document.querySelector("#announce")
-
+        let xScore = 0;
+        let yScore = 0;
         function announcePlayer(player){
             announcer.textContent = `Player ${player}'s turn`;
         }
@@ -76,21 +71,44 @@ function gameBoard(){
             let winChecker = winner(player);
             if(winChecker.win(board)){
                 winStatus = 1;
+                if(player == "X"){
+                    xScore++;
+                    console.log(xScore)
+                }
+                else if(player == "Y"){
+                    yScore++;
+                    console.log(yScore)
+                }
                 announcer.textContent = `Player ${player}'s win`;
-                setTimeout(resetBoard, 3000)
+                updateScore();
+                setTimeout(resetBoard, 3000);
             }
         }
     
         function tie(round){
-            if(round >= 9){
+            if(round >= 8){
                 announcer.textContent = `Players tied`;
-                setTimeout(resetBoard, 3000)
+                setTimeout(resetBoard, 3000);
             }
         }
-        return {announcePlayer, win, tie}
-    }
 
-    let announcements = announce();
+        function updateScore(){
+            let xScoreBoard = document.querySelector("#x-score")
+            xScoreBoard.textContent = xScore
+            let yScoreBoard = document.querySelector("#y-score")
+            yScoreBoard.textContent = yScore
+        }
+
+        function resetScore(){
+            xScore = 0;
+            yScore = 0;
+            updateScore();
+            console.log(xScore)
+            console.log(yScore)
+        }
+
+        return {announcePlayer, win, tie, resetScore}
+    }
 
     function play(box){
         if(box.target.textContent == "" && winStatus == 0){
@@ -110,6 +128,7 @@ function gameBoard(){
                 announcements.win(player, currentGame);
                 player = "Y"; 
             }
+            announcements.tie(round);
             round++;
         }
     }
@@ -137,10 +156,21 @@ function gameBoard(){
         winStatus = 0;
         createBoard();
     }
+
+    let round = 1;
+    let box = document.querySelector("#game-board");
+    let player = "X"
+    let currentGame = [["", "", ""], ["", "", ""], ["", "", ""]]
+    let winStatus = 0;
+    let announcements = announce();
+    let resetScore = document.querySelector("#reset");
+    resetScore.addEventListener("click", () => {
+        announcements.resetScore();
+        resetBoard();
+    })
     
     return {createBoard, resetBoard}
 }
 
 let board = gameBoard();
-
 board.createBoard();

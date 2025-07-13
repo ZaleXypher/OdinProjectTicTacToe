@@ -30,17 +30,20 @@ body{
     align-items: center;
 }
 
-button, #announce{
+button, #announce, .x-score, .y-score{
     appearance: none;
     font-size: 1.1em;
     padding: .4em;
     border: 2px black solid;
     background-color: white;
     border-radius: .5em;
+}
+
+button{
     cursor: pointer;
 }
 
-.game-button{
+.top-bar{
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -63,11 +66,12 @@ button, #announce{
 .play-box{
     border-radius: .5rem;
     border: 1px black dotted;
-    font-size: 6rem;
+    font-size: 10vh;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .play-box:hover{
@@ -81,3 +85,31 @@ button, #announce{
 .Y{
     color: blue;
 }
+
+.scores{
+    display: grid;
+}
+
+.x-score, .y-score{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10%;
+    margin-top: 0;
+}
+
+.y-score{
+    grid-column: 2 / 3;
+}
+
+.score-label{
+    font-weight: 500;
+    font-size: .8em;
+}
+
+.score{
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
