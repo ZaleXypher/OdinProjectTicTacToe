@@ -1,0 +1,54 @@
+body{
+    background-color: darkgray;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container{
+    display: grid;
+    width: fit-content;
+    margin: auto;
+    gap: 1.2rem;
+    padding: 1.2rem;
+}
+
+button{
+    appearance: none;
+    font-size: 1.1em;
+    border: 2px black solid;
+    border-radius: .5em;
+    cursor: pointer;
+}
+
+.game-button{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#game-board{
+    grid-row: 2 / 3;
+    width:  50vh;
+    height: 50vh;
+    border: 1px black solid;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.play-box{
+    border: 1px black dotted;
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.X{
+    color: red;
+}
+
+.Y{
+    color: blue;
+}
